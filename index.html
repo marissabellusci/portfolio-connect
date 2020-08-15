@@ -63,6 +63,15 @@ p {
   padding: 1rem;
   font-size: 1.5rem;
   letter-spacing: 2px;
+
+  transition: all 1s;
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.socials-link.active {
+  opacity: 1;
+  transform: scale(1);
 }
 
 .LinkedIn {
@@ -93,8 +102,6 @@ p {
 
 </header>
 
-    <script>
-        </script>
 <h1>Connect</h1>
 <p>Drop me a line!</p>
 
@@ -104,6 +111,57 @@ p {
 <a class="socials-link Twitter" href="https://twitter.com/marissabellusci" target=_blank>Twitter</a>
 <a class="socials-link Email" href="mailto:marissabellusci@gmail.com" target=_blank>Email</a>
 </div>
+
+<script>
+
+  function debounce(func, wait = 10, immediate = true) {
+  var timeout;
+  return function() {
+    var context = this, args = arguments;
+    var later = function() {
+      timeout = null;
+      if (!immediate) func.apply(context, args);
+    };
+    var callNow = immediate && !timeout;
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+    if (callNow) func.apply(context, args);
+  };
+}
+
+const links = document.querySelectorAll('.socials-link');
+
+function checkFade(e){
+  
+  links.forEach(link => {
+    //halfway thru image
+  const fadeInAt = (window.scrollY + window.innerHeight) - link.clientHeight / 2; //window.scrollY tells us how far down the page is scrolled, measured from the top. To measure from the bottom, we add the height of the window.
+    //bottom of image
+  const linkBottom = link.offsetTop + link.clientHeight;
+    
+  
+  const isHalfShown = fadeInAt > link.offsetTop;
+
+  const isNotScrolledPast = window.scrollY < linkBottom;
+
+  if(isHalfShown && isNotScrolledPast){
+    link.classList.add('active');
+  }
+
+  else{
+    link.classList.remove('active');
+  }
+
+  })
+}
+
+window.addEventListener('scroll',debounce(checkFade));
+
+window.addEventListener('load',debounce(checkFade));
+
+
+
+    </script>
 
 </body>
 </html>
