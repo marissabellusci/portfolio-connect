@@ -158,9 +158,23 @@ function checkFade(e){
 }
 
 window.addEventListener('scroll',debounce(checkFade));
-
 window.addEventListener('load',debounce(checkFade));
 
+//Changing buttons color on hover
+
+function changeColor(e){
+  this.style.transform = 'scale(1.01)';
+  this.style.boxShadow ='1px 1px 10px 4px gray'
+}
+
+function revertColor(e){
+  this.style.transform = 'scale(1)';
+  this.style.boxShadow = 'none';
+}
+
+links.forEach(link => link.addEventListener('mouseenter', changeColor));
+
+links.forEach(link => link.addEventListener('mouseleave', revertColor));
 
 
     </script>
